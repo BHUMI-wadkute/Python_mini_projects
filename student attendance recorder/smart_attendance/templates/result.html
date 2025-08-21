@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Attendance Result</title>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@600&family=Pacifico&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, #d0f0fd, #ffffff, #ffd3f8);
+            background-size: 400% 400%;
+            animation: gradientMove 15s ease infinite, fadeIn 1s ease-in-out;
+            font-family: 'Quicksand', sans-serif;
+            text-align: center;
+            padding: 40px;
+            color: #333;
+        }
+        h1 {
+            font-family: 'Pacifico', cursive;
+            font-size: 3em;
+            color: #4b0082;
+            margin-bottom: 10px;
+            animation: slideIn 1s ease-out;
+        }
+        .summary {
+            font-size: 1.2em;
+            margin: 20px 0;
+            animation: fadeIn 1s ease-in-out;
+        }
+        .list-section {
+            margin: 30px auto;
+            padding: 20px;
+            max-width: 500px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            animation: fadeInUp 1s ease-out;
+        }
+        .present-title { color: green; margin-bottom: 10px; }
+        .absent-title { color: red; margin-bottom: 10px; }
+        ul { list-style: none; padding: 0; }
+        li {
+            background: #e0f7fa;
+            margin: 6px 0;
+            padding: 10px 15px;
+            border-radius: 8px;
+            transition: transform 0.2s ease;
+        }
+        li:hover { transform: scale(1.03); background: #b2ebf2; }
+        .btn-container { margin-top: 30px; }
+        .btn {
+            font-family: 'Quicksand', sans-serif;
+            background-color: #4b0082;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            text-decoration: none;
+            font-size: 1rem;
+            transition: background 0.3s ease;
+        }
+        .btn:hover { background-color: #6a0dad; }
+        @keyframes fadeIn { from { opacity: 0 } to { opacity: 1 } }
+        @keyframes slideIn { from { transform: translateY(-30px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        @keyframes fadeInUp { from { transform: translateY(30px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        @keyframes gradientMove {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+    </style>
+</head>
+<body>
+
+    <h1>📋 Attendance Result</h1>
+
+    <!-- ✅ Summary Section -->
+    <div class="summary">
+        <p><strong>Total Students:</strong> {{ present|length + absent|length }}</p>
+        <p><strong>✅ Present:</strong> {{ present|length }}</p>
+        <p><strong>❌ Absent:</strong> {{ absent|length }}</p>
+    </div>
+
+    <div class="list-section">
+        <h2 class="present-title">✅ Present Students</h2>
+        <ul>
+            {% for name in present %}
+                <li>{{ name }}</li>
+            {% else %}
+                <li>No present students</li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <div class="list-section">
+        <h2 class="absent-title">❌ Absent Students</h2>
+        <ul>
+            {% for name in absent %}
+                <li>{{ name }}</li>
+            {% else %}
+                <li>No absent students</li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <div class="btn-container">
+        <a href="{{ url_for('index') }}" class="btn">🔙 Back to Attendance</a>
+    </div>
+
+</body>
+</html>
+
+
