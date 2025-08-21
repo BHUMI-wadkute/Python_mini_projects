@@ -1,0 +1,165 @@
+{% extends 'base.html' %}
+{% block content %}
+<style>
+    .order-container {
+        background-color: rgba(24, 24, 24, 0.95);
+        padding: 40px;
+        border-radius: 20px;
+        max-width: 950px;
+        margin: 0 auto;
+        box-shadow: 0 0 30px rgba(0, 0, 0, 0.6);
+    }
+
+    h2 {
+        font-family: 'Pacifico', cursive;
+        font-size: 2.5rem;
+        text-align: center;
+        color: #ffcc33;
+        margin-bottom: 30px;
+        text-shadow: 2px 2px 8px #000;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 12px;
+        overflow: hidden;
+        margin-bottom: 30px;
+    }
+
+    thead {
+        background: #ffcc33;
+        color: #000;
+        font-weight: bold;
+    }
+
+    th, td {
+        padding: 14px;
+        text-align: left;
+        font-size: 1rem;
+        color: #f0f0f0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    td input[type="number"] {
+        padding: 6px 10px;
+        border-radius: 6px;
+        border: 1px solid #999;
+        width: 60px;
+        background: #1c1c1c;
+        color: #fff;
+    }
+
+    td input[type="number"]:focus {
+        outline: none;
+        border-color: #ffcc33;
+        box-shadow: 0 0 5px #ffcc33;
+    }
+
+    .category {
+        font-size: 1.3rem;
+        font-weight: bold;
+        padding: 12px 0;
+        color: #ffe066;
+        text-shadow: 1px 1px 4px #000;
+    }
+
+    .submit-btn {
+        display: block;
+        background: #ffcc33;
+        color: #1a1a1a;
+        font-weight: bold;
+        padding: 12px 28px;
+        border: none;
+        border-radius: 10px;
+        margin: 0 auto;
+        cursor: pointer;
+        font-size: 1.1rem;
+        box-shadow: 3px 6px 12px rgba(0,0,0,0.4);
+        transition: background 0.3s, transform 0.2s;
+    }
+
+    .submit-btn:hover {
+        background: #ffe773;
+        transform: translateY(-2px);
+    }
+</style>
+
+<div class="order-container">
+    <h2>Place Your Order</h2>
+    <form method="POST" action="{{ url_for('take_order') }}">
+        <table>
+            <thead>
+                <tr>
+                    <th>Item</th>
+                    <th>Price (INR)</th>
+                    <th>Quantity</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- ☕ Hot Beverages -->
+                <tr><td class="category" colspan="3">☕ Hot Beverages</td></tr>
+                {% for item in ['Full Tea', 'Half Tea', 'Espresso', 'Americano', 'Filter Coffee', 'Green Tea', 'Masala Chai'] %}
+                <tr>
+                    <td>{{ item }}</td>
+                    <td>₹{{ menu[item] }}</td>
+                    <td><input type="number" min="0" name="{{ item }}" value="0" /></td>
+                </tr>
+                {% endfor %}
+
+                <!-- 🥤 Cold Beverages -->
+                <tr><td class="category" colspan="3">🥤 Cold Beverages</td></tr>
+                {% for item in ['Cold Coffee', 'Lemon Tea', 'Hot Chocolate', 'Oreo Shake', 'KitKat Shake', 'Milkshake - Vanilla', 'Milkshake - Chocolate'] %}
+                <tr>
+                    <td>{{ item }}</td>
+                    <td>₹{{ menu[item] }}</td>
+                    <td><input type="number" min="0" name="{{ item }}" value="0" /></td>
+                </tr>
+                {% endfor %}
+
+                <!-- 🥪 Sandwiches -->
+                <tr><td class="category" colspan="3">🥪 Sandwiches</td></tr>
+                {% for item in ['Veg Sandwich', 'Cheese Sandwich', 'Paneer Sandwich', 'Club Sandwich', 'Grilled Sandwich', 'Corn Cheese Sandwich', 'Spicy Veg Sandwich'] %}
+                <tr>
+                    <td>{{ item }}</td>
+                    <td>₹{{ menu[item] }}</td>
+                    <td><input type="number" min="0" name="{{ item }}" value="0" /></td>
+                </tr>
+                {% endfor %}
+
+                <!-- 🍟 Snacks & Sides -->
+                <tr><td class="category" colspan="3">🍟 Snacks & Sides</td></tr>
+                {% for item in ['Veg Puff', 'Paneer Puff', 'French Fries', 'Peri Peri Fries', 'Garlic Bread', 'Cheesy Garlic Bread', 'Spring Rolls'] %}
+                <tr>
+                    <td>{{ item }}</td>
+                    <td>₹{{ menu[item] }}</td>
+                    <td><input type="number" min="0" name="{{ item }}" value="0" /></td>
+                </tr>
+                {% endfor %}
+
+                <!-- 🍔 Burgers -->
+                <tr><td class="category" colspan="3">🍔 Burgers</td></tr>
+                {% for item in ['Veg Burger', 'Cheese Burger', 'Paneer Burger', 'Tandoori Burger', 'Double Patty Burger', 'Crispy Veg Burger', 'Spicy Paneer Burger'] %}
+                <tr>
+                    <td>{{ item }}</td>
+                    <td>₹{{ menu[item] }}</td>
+                    <td><input type="number" min="0" name="{{ item }}" value="0" /></td>
+                </tr>
+                {% endfor %}
+
+                <!-- 🧁 Desserts -->
+                <tr><td class="category" colspan="3">🧁 Desserts</td></tr>
+                {% for item in ['Chocolate Muffin', 'Blueberry Muffin', 'Choco Lava Cake', 'Vanilla Ice Cream', 'Brownie', 'Strawberry Cupcake', 'Donut'] %}
+                <tr>
+                    <td>{{ item }}</td>
+                    <td>₹{{ menu[item] }}</td>
+                    <td><input type="number" min="0" name="{{ item }}" value="0" /></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <button type="submit" class="submit-btn">Place Order</button>
+    </form>
+</div>
+{% endblock %}

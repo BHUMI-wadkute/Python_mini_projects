@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Your Bill</h2>
+
+<!-- 🧾 Order Summary Table -->
+<table border="1" cellpadding="8" cellspacing="0" style="width: 60%; margin: 20px auto; text-align: center;">
+    <thead style="background-color: #f2f2f2;">
+        <tr>
+            <th>Item</th>
+            <th>Qty</th>
+            <th>Price (₹)</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for item, qty in order.items() %}
+        <tr>
+            <td>{{ item }}</td>
+            <td>{{ qty }}</td>
+            <td>₹{{ "%.2f"|format(qty * menu.get(item, 0)) }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<!-- 💰 Totals -->
+<hr style="width: 60%; margin: 30px auto;" />
+
+<div style="width: 60%; margin: 0 auto; text-align: left;">
+    <p><strong>Subtotal:</strong> ₹{{ "%.2f"|format(total) }}</p>
+    <p><strong>Tax (10%):</strong> ₹{{ "%.2f"|format(tax) }}</p>
+    <p><strong>Total:</strong> ₹{{ "%.2f"|format(grand_total) }}</p>
+</div>
+
+<!-- 📱 QR Code Payment Section -->
+<div style="text-align: center; margin-top: 40px;">
+    <p><strong>Scan to Pay</strong></p>
+    <img src="{{ url_for('static', filename='images/qr.jpg') }}" alt="QR Code" width="200" height="200" style="border: 1px solid #ccc; padding: 8px; background: #fff;" />
+    <p>UPI / Paytm / PhonePe Supported</p>
+</div>
+
+<!-- 🔁 Navigation -->
+<div style="text-align: center; margin-top: 30px;">
+    <a href="{{ url_for('home') }}" style="text-decoration: none; padding: 10px 20px; background-color: #4CAF50; color: white; border-radius: 5px;">Back to Menu</a>
+</div>
+{% endblock %}

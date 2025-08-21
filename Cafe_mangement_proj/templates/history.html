@@ -1,0 +1,101 @@
+{% extends 'base.html' %}
+{% block content %}
+<style>
+    .history-container {
+        max-width: 900px;
+        margin: 40px auto;
+        background: rgba(30, 30, 30, 0.95);
+        padding: 40px;
+        border-radius: 20px;
+        box-shadow: 0 0 30px rgba(0,0,0,0.5);
+    }
+
+    h2 {
+        font-family: 'Pacifico', cursive;
+        text-align: center;
+        font-size: 2.5rem;
+        color: #ffcc33;
+        text-shadow: 1px 1px 6px #000;
+        margin-bottom: 30px;
+    }
+
+    .order-card {
+        background: rgba(255, 255, 255, 0.05);
+        padding: 20px 25px;
+        margin-bottom: 25px;
+        border-radius: 15px;
+        box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+        border-left: 6px solid #ffcc33;
+    }
+
+    .order-card h4 {
+        margin-bottom: 10px;
+        color: #ffe066;
+        font-weight: 500;
+        font-size: 1.2rem;
+    }
+
+    .order-card ul {
+        margin: 0;
+        padding-left: 20px;
+        color: #f0f0f0;
+        font-size: 1rem;
+    }
+
+    .order-card p {
+        margin-top: 10px;
+        font-weight: bold;
+        color: #ffffff;
+    }
+
+    .btn-container {
+        text-align: center;
+        margin-top: 30px;
+    }
+
+    .btn-container a {
+        background: #ffcc33;
+        color: #1a1a1a;
+        text-decoration: none;
+        font-weight: bold;
+        padding: 12px 24px;
+        border-radius: 10px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        transition: background 0.3s ease, transform 0.2s;
+    }
+
+    .btn-container a:hover {
+        background: #ffe773;
+        transform: translateY(-2px);
+    }
+
+    .no-orders {
+        color: #ddd;
+        font-size: 1.1rem;
+        text-align: center;
+        margin-top: 20px;
+    }
+</style>
+
+<div class="history-container">
+    <h2>Order History</h2>
+    {% if history %}
+        {% for order in history %}
+        <div class="order-card">
+            <h4>Time: {{ order.time }}</h4>
+            <ul>
+                {% for item, qty in order.get_items().items() %}
+                <li>{{ item }} x{{ qty }}</li>
+                {% endfor %}
+            </ul>
+            <p><strong>Total:</strong> ₹{{ "%.2f"|format(order.total) }}</p>
+        </div>
+        {% endfor %}
+    {% else %}
+        <p class="no-orders">No orders placed yet.</p>
+    {% endif %}
+    <div class="btn-container">
+        <a href="{{ url_for('home') }}">Back to Menu</a>
+    </div>
+</div>
+{% endblock %}

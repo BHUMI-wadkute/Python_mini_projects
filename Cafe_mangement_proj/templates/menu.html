@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Fast Food Café Menu</title>
+  <link href="https://fonts.googleapis.com/css2?family=Rock+Salt&family=Roboto&display=swap" rel="stylesheet">
+<style>
+  body {
+    margin: 0;
+    padding: 0;
+    background: url('https://www.transparenttextures.com/patterns/blackboard.png') repeat;
+    font-family: 'Roboto', sans-serif;
+    color: #fff;
+  }
+
+  .menu-wrapper {
+    max-width: 900px;
+    margin: 60px auto;
+    padding: 40px;
+    background: rgba(0, 0, 0, 0.9);
+    border: 8px solid #ffeb3b;
+    border-radius: 16px;
+    box-shadow: 0 0 40px rgba(0,0,0,0.7);
+  }
+
+  h1 {
+    font-family: 'Rock Salt', cursive;
+    font-size: 3.5rem;
+    text-align: center;
+    color: #ffeb3b;
+    text-shadow: 3px 3px 4px #000;
+    margin-bottom: 40px;
+  }
+
+  .category {
+    margin: 30px 0;
+  }
+
+  .category button {
+  font-size: 2rem;
+  background: none;
+  border: none;
+  color: #ff9800;
+  font-family: 'Rock Salt', cursive;
+  cursor: pointer;
+  border-bottom: 2px dashed #ff9800;
+  padding-bottom: 10px;
+  width: 100%;
+  text-align: center;
+  display: block;
+  transition: color 0.3s ease;
+}
+
+.category-icon {
+  width: 60px;
+  height: 60px;
+  margin: 0 auto 10px;
+  border-radius: 8px;
+  object-fit: contain;
+}
+
+.toggle-icon {
+  display: block;
+  font-size: 2rem;
+  margin-top: 8px;
+}
+
+  .category-items {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease;
+  }
+
+  .category-items.open {
+    display: block;
+    max-height: 1000px;
+  }
+
+  .item {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.1rem;
+    padding: 10px 12px;
+    margin-bottom: 5px;
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: 6px;
+    border: 1px dashed rgba(255, 255, 255, 0.2);
+    transition: background 0.3s;
+  }
+
+  .item:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+
+  .item span:first-child {
+    text-shadow: 1px 1px #000;
+  }
+
+  .price {
+    color: #ffc107;
+    font-weight: bold;
+    text-shadow: 1px 1px #000;
+  }
+
+  .order-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 230px;
+    margin: 40px auto 20px;
+    padding: 15px 30px;
+    font-size: 1.2rem;
+    font-family: 'Rock Salt', cursive;
+    color: #000;
+    background: linear-gradient(145deg, #ffeb3b, #ffd600);
+    border: 2px solid #fff;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: 0.3s;
+    text-decoration: none;
+    box-shadow: 3px 3px 10px rgba(0,0,0,0.5);
+  }
+
+  .order-btn:hover {
+    background: linear-gradient(145deg, #fff176, #ffeb3b);
+    transform: scale(1.05);
+  }
+
+  .footer {
+    text-align: center;
+    margin-top: 30px;
+    font-size: 0.95rem;
+    color: #ccc;
+    opacity: 0.9;
+    padding-top: 10px;
+    border-top: 1px solid #444;
+  }
+
+  @media(max-width: 600px) {
+    h1 { font-size: 2.2rem; }
+    .item { font-size: 1rem; padding: 8px; }
+    .category button { font-size: 1.5rem; }
+    .toggle-icon { font-size: 1.5rem; }
+    .order-btn { font-size: 1rem; padding: 12px 20px; }
+    .category-icon {
+      width: 40px;
+      height: 40px;
+    }
+  }
+</style>
+
+  </style>
+</head>
+<body>
+  <div class="menu-wrapper">
+    <h1>Café Menu</h1>
+
+    <!-- Hot Beverages -->
+    <div class="category">
+      <button onclick="toggleItems('hot-beverages', this)" aria-expanded="false">
+        <img src="static/images/Hot Beverages.png" alt="Hot" class="category-icon">
+        Hot Beverages <span class="toggle-icon">+</span>
+      </button>
+      <div id="hot-beverages" class="category-items">
+        <div class="item"><span>Full Tea</span><span class="price">₹20</span></div>
+        <div class="item"><span>Half Tea</span><span class="price">₹10</span></div>
+        <div class="item"><span>Espresso</span><span class="price">₹80</span></div>
+        <div class="item"><span>Americano</span><span class="price">₹90</span></div>
+        <div class="item"><span>Filter Coffee</span><span class="price">₹70</span></div>
+        <div class="item"><span>Green Tea</span><span class="price">₹60</span></div>
+        <div class="item"><span>Masala Chai</span><span class="price">₹50</span></div>
+      </div>
+    </div>
+
+    <!-- Cold Beverages -->
+    <div class="category">
+      <button onclick="toggleItems('cold-beverages', this)" aria-expanded="false">
+        <img src="static/images/cold-beverages.png" alt="Cold" class="category-icon">
+        Cold Beverages <span class="toggle-icon">+</span>
+      </button>
+      <div id="cold-beverages" class="category-items">
+        <div class="item"><span>Cold Coffee</span><span class="price">₹100</span></div>
+        <div class="item"><span>Lemon Tea</span><span class="price">₹50</span></div>
+        <div class="item"><span>Hot Chocolate</span><span class="price">₹150</span></div>
+        <div class="item"><span>Oreo Shake</span><span class="price">₹140</span></div>
+        <div class="item"><span>KitKat Shake</span><span class="price">₹140</span></div>
+        <div class="item"><span>Milkshake - Vanilla</span><span class="price">₹120</span></div>
+        <div class="item"><span>Milkshake - Chocolate</span><span class="price">₹130</span></div>
+      </div>
+    </div>
+
+    <!-- Burgers -->
+    <div class="category">
+      <button onclick="toggleItems('burgers', this)" aria-expanded="false">
+        <img src="static/images/burgers.png" alt="Burgers" class="category-icon">
+        Burgers <span class="toggle-icon">+</span>
+      </button>
+      <div id="burgers" class="category-items">
+        <div class="item"><span>Veg Burger</span><span class="price">₹90</span></div>
+        <div class="item"><span>Cheese Burger</span><span class="price">₹110</span></div>
+        <div class="item"><span>Paneer Burger</span><span class="price">₹120</span></div>
+        <div class="item"><span>Tandoori Burger</span><span class="price">₹130</span></div>
+        <div class="item"><span>Double Patty Burger</span><span class="price">₹150</span></div>
+        <div class="item"><span>Crispy Veg Burger</span><span class="price">₹100</span></div>
+        <div class="item"><span>Spicy Paneer Burger</span><span class="price">₹140</span></div>
+      </div>
+    </div>
+
+    <!-- Sandwiches -->
+    <div class="category">
+      <button onclick="toggleItems('sandwiches', this)" aria-expanded="false">
+        <img src="static/images/sandwiches.png" alt="Sandwiches" class="category-icon">
+        Sandwiches <span class="toggle-icon">+</span>
+      </button>
+      <div id="sandwiches" class="category-items">
+        <div class="item"><span>Veg Sandwich</span><span class="price">₹100</span></div>
+        <div class="item"><span>Cheese Sandwich</span><span class="price">₹110</span></div>
+        <div class="item"><span>Paneer Sandwich</span><span class="price">₹120</span></div>
+        <div class="item"><span>Club Sandwich</span><span class="price">₹140</span></div>
+        <div class="item"><span>Grilled Sandwich</span><span class="price">₹130</span></div>
+        <div class="item"><span>Corn Cheese Sandwich</span><span class="price">₹120</span></div>
+        <div class="item"><span>Spicy Veg Sandwich</span><span class="price">₹110</span></div>
+      </div>
+    </div>
+
+    <!-- Desserts -->
+    <div class="category">
+      <button onclick="toggleItems('desserts', this)" aria-expanded="false">
+        <img src="static/images/desserts.png" alt="Desserts" class="category-icon">
+        Desserts <span class="toggle-icon">+</span>
+      </button>
+      <div id="desserts" class="category-items">
+        <div class="item"><span>Chocolate Muffin</span><span class="price">₹60</span></div>
+        <div class="item"><span>Blueberry Muffin</span><span class="price">₹70</span></div>
+        <div class="item"><span>Choco Lava Cake</span><span class="price">₹80</span></div>
+        <div class="item"><span>Vanilla Ice Cream</span><span class="price">₹50</span></div>
+        <div class="item"><span>Brownie</span><span class="price">₹90</span></div>
+        <div class="item"><span>Strawberry Cupcake</span><span class="price">₹60</span></div>
+        <div class="item"><span>Donut</span><span class="price">₹70</span></div>
+      </div>
+    </div>
+
+    <!-- Sides & Meals -->
+    <div class="category">
+      <button onclick="toggleItems('sides-meals', this)" aria-expanded="false">
+        <img src="static/images/sides-meals.png" alt="Meals" class="category-icon">
+        Sides & Meals <span class="toggle-icon">+</span>
+      </button>
+      <div id="sides-meals" class="category-items">
+        <div class="item"><span>French Fries</span><span class="price">₹90</span></div>
+        <div class="item"><span>Peri Peri Fries</span><span class="price">₹100</span></div>
+        <div class="item"><span>Garlic Bread</span><span class="price">₹80</span></div>
+        <div class="item"><span>Cheesy Garlic Bread</span><span class="price">₹100</span></div>
+        <div class="item"><span>Pasta - White Sauce</span><span class="price">₹150</span></div>
+        <div class="item"><span>Pasta - Red Sauce</span><span class="price">₹140</span></div>
+        <div class="item"><span>Pizza - Paneer Tikka</span><span class="price">₹230</span></div>
+      </div>
+    </div>
+
+    <a href="/order" class="order-btn">📋 Place Order</a>
+
+    <div class="footer">
+      <p>Thank you for choosing our café! Enjoy your meal!</p>
+      <p>&copy; 2025 Fast Food Café</p>
+    </div>
+  </div>
+
+  <script>
+    function toggleItems(id, btn) {
+      const allSections = document.querySelectorAll('.category-items');
+      const allButtons = document.querySelectorAll('.category button');
+      const section = document.getElementById(id);
+      const isOpen = section.classList.contains('open');
+
+      allSections.forEach(sec => sec.classList.remove('open'));
+      allButtons.forEach(b => {
+        b.setAttribute('aria-expanded', false);
+        b.classList.remove('active');
+        b.querySelector('.toggle-icon').textContent = '+';
+      });
+
+      if (!isOpen) {
+        section.classList.add('open');
+        btn.setAttribute('aria-expanded', true);
+        btn.classList.add('active');
+        btn.querySelector('.toggle-icon').textContent = '−';
+      }
+    }
+  </script>
+</body>
+</html>
